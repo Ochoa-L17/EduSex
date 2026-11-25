@@ -8,11 +8,12 @@ export default function Navbar({
   streak,
   soundEnabled,
   setSoundEnabled,
+  onPartyMode,
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleTabClick = (tab) => {
-    playSound('click', soundEnabled);
+    playSound('pop', soundEnabled);
     setActiveTab(tab);
     setMobileMenuOpen(false);
   };
@@ -20,86 +21,111 @@ export default function Navbar({
   const toggleSound = () => {
     const next = !soundEnabled;
     setSoundEnabled(next);
-    if (next) playSound('click', true);
+    if (next) playSound('pop', true);
   };
 
   return (
     <header className="navbar-container">
       <div className="navbar-content">
-        {/* Brand Logo */}
-        <div className="brand" onClick={() => handleTabClick('inicio')}>
+        {/* Left: Brand Logo */}
+        <div className="brand" onClick={() => handleTabClick('inicio')} role="button" tabIndex={0}>
           <div className="brand-badge">
             <span className="brand-emoji">⚡</span>
           </div>
-          <div className="brand-text">
-            <span className="brand-title">Edu<span className="brand-highlight">Sex</span></span>
-            <span className="brand-sub">Rompe el Tabú</span>
+          <div className="brand-text-aligned">
+            <span className="brand-title">
+              Edu<span className="brand-highlight">Sex</span>
+            </span>
+            <span className="brand-pill-sub">Rompe el Tabú</span>
           </div>
         </div>
 
-        {/* Navigation Tabs */}
+        {/* Center: Navigation Links perfectly leveled */}
         <nav className={`nav-links ${mobileMenuOpen ? 'mobile-open' : ''}`}>
           <button
             className={`nav-btn ${activeTab === 'inicio' ? 'active' : ''}`}
             onClick={() => handleTabClick('inicio')}
           >
-            🏠 Inicio
+            <span className="nav-btn-icon">🏠</span>
+            <span>Inicio</span>
           </button>
+
           <button
             className={`nav-btn game-nav-btn ${activeTab === 'juego' ? 'active' : ''}`}
             onClick={() => handleTabClick('juego')}
           >
-            🎮 Juego Infinito <span className="nav-tag">HOT</span>
+            <span className="nav-btn-icon">🎮</span>
+            <span>Juego Infinito</span>
+            <span className="nav-tag-pastel">HOT</span>
           </button>
+
           <button
             className={`nav-btn ${activeTab === 'its' ? 'active' : ''}`}
             onClick={() => handleTabClick('its')}
           >
-            🦠 Info ITS
+            <span className="nav-btn-icon">🦠</span>
+            <span>Info ITS</span>
           </button>
+
           <button
             className={`nav-btn ${activeTab === 'mitos' ? 'active' : ''}`}
             onClick={() => handleTabClick('mitos')}
           >
-            ⚡ Mitos vs Realidad
+            <span className="nav-btn-icon">⚡</span>
+            <span>Mitos</span>
           </button>
+
           <button
             className={`nav-btn ${activeTab === 'guia' ? 'active' : ''}`}
             onClick={() => handleTabClick('guia')}
           >
-            🛡️ Guía Práctica
+            <span className="nav-btn-icon">🛡️</span>
+            <span>Guía Práctica</span>
           </button>
+
           <button
             className={`nav-btn ${activeTab === 'ayuda' ? 'active' : ''}`}
             onClick={() => handleTabClick('ayuda')}
           >
-            🆘 Ayuda SOS
+            <span className="nav-btn-icon">🆘</span>
+            <span>Ayuda SOS</span>
           </button>
         </nav>
 
-        {/* Gamification Bar & Controls */}
+        {/* Right: Gamification Badges & Actions leveled */}
         <div className="navbar-actions">
+          {/* Party Confetti Trigger */}
+          <button
+            type="button"
+            className="action-pill party-pill"
+            onClick={onPartyMode}
+            title="¡Modo Fiesta! Lanza confeti pastel"
+          >
+            <span className="action-icon">🎉</span>
+            <span className="action-text">Fiesta</span>
+          </button>
+
           {/* Streak Badge */}
-          <div className="stat-pill streak-pill" title="Racha de aciertos seguidos en el juego">
-            <span className="streak-flame">🔥</span>
-            <span className="stat-number">{streak}</span>
+          <div className="action-pill streak-pill" title="Racha de aciertos en el juego">
+            <span className="action-icon streak-flame">🔥</span>
+            <span className="action-text">{streak}</span>
           </div>
 
           {/* XP Pill */}
-          <div className="stat-pill xp-pill" title="Tus puntos de experiencia">
-            <span className="xp-icon">⚡</span>
-            <span className="stat-number">{score} XP</span>
+          <div className="action-pill xp-pill" title="Tus puntos de experiencia">
+            <span className="action-icon">✨</span>
+            <span className="action-text">{score} XP</span>
           </div>
 
           {/* Sound Toggle */}
           <button
             type="button"
-            className={`icon-btn ${soundEnabled ? 'sound-on' : 'sound-off'}`}
+            className="action-pill sound-pill"
             onClick={toggleSound}
             title={soundEnabled ? 'Silenciar sonidos' : 'Activar efectos de sonido'}
             aria-label="Alternar sonido"
           >
-            {soundEnabled ? '🔊' : '🔇'}
+            <span className="action-icon">{soundEnabled ? '🔊' : '🔇'}</span>
           </button>
 
           {/* Mobile hamburger */}

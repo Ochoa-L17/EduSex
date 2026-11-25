@@ -1,4 +1,4 @@
-// Web Audio API sound generator - no external MP3s needed!
+// Web Audio API sound generator con sonidos tiernos y divertidos tipo videojuego pastel
 let audioCtx = null;
 
 function getAudioContext() {
@@ -23,29 +23,33 @@ export const playSound = (type, enabled = true) => {
 
     const now = ctx.currentTime;
 
-    if (type === 'click') {
+    if (type === 'click' || type === 'pop') {
+      // Cute bubble pop sound
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(450, now);
-      osc.frequency.exponentialRampToValueAtTime(300, now + 0.05);
-      gain.gain.setValueAtTime(0.12, now);
-      gain.gain.linearRampToValueAtTime(0.01, now + 0.05);
+      osc.frequency.setValueAtTime(400, now);
+      osc.frequency.exponentialRampToValueAtTime(800, now + 0.04);
+      osc.frequency.exponentialRampToValueAtTime(300, now + 0.08);
+
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
+
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start(now);
-      osc.stop(now + 0.05);
+      osc.stop(now + 0.08);
     } else if (type === 'correct') {
-      // Major chord arpeggio for victory!
-      const notes = [523.25, 659.25, 783.99, 1046.5]; // C5, E5, G5, C6
+      // Sweet melodic chime (C5 -> E5 -> G5 -> C6)
+      const notes = [523.25, 659.25, 783.99, 1046.5];
       notes.forEach((freq, idx) => {
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
-        const start = now + idx * 0.08;
-        osc.type = 'triangle';
+        const start = now + idx * 0.07;
+        osc.type = 'sine';
         osc.frequency.setValueAtTime(freq, start);
         gain.gain.setValueAtTime(0, start);
-        gain.gain.linearRampToValueAtTime(0.2, start + 0.02);
+        gain.gain.linearRampToValueAtTime(0.18, start + 0.02);
         gain.gain.exponentialRampToValueAtTime(0.001, start + 0.28);
         osc.connect(gain);
         gain.connect(ctx.destination);
@@ -53,27 +57,38 @@ export const playSound = (type, enabled = true) => {
         osc.stop(start + 0.3);
       });
     } else if (type === 'wrong') {
-      // Soft boop downward
+      // Gentle cute boop
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(220, now);
-      osc.frequency.exponentialRampToValueAtTime(110, now + 0.2);
-      gain.gain.setValueAtTime(0.15, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(260, now);
+      osc.frequency.exponentialRampToValueAtTime(180, now + 0.16);
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start(now);
-      osc.stop(now + 0.22);
+      osc.stop(now + 0.18);
+    } else if (type === 'tick') {
+      // Wheel tick
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(900, now);
+      gain.gain.setValueAtTime(0.08, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.03);
     } else if (type === 'fanfare') {
-      // Big level up / streak celebration!
+      // Cheerful xylophone celebration
       const melody = [
-        { f: 523.25, d: 0.1 },
-        { f: 659.25, d: 0.1 },
-        { f: 783.99, d: 0.1 },
-        { f: 1046.5, d: 0.25 },
-        { f: 880, d: 0.12 },
-        { f: 1046.5, d: 0.4 },
+        { f: 523.25, d: 0.09 },
+        { f: 659.25, d: 0.09 },
+        { f: 783.99, d: 0.09 },
+        { f: 880.0, d: 0.09 },
+        { f: 1046.5, d: 0.28 },
       ];
       let t = now;
       melody.forEach((note) => {
@@ -87,10 +102,10 @@ export const playSound = (type, enabled = true) => {
         gain.connect(ctx.destination);
         osc.start(t);
         osc.stop(t + note.d);
-        t += note.d * 0.9;
+        t += note.d * 0.85;
       });
     }
   } catch {
-    // Audio autoplay restrictions or errors handled gracefully
+    // Audio restrictions handled safely
   }
 };

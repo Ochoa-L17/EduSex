@@ -1,8 +1,8 @@
 import { playSound } from '../utils/sound';
 
-export default function Hero({ onStartGame, onExploreIts, onOpenMyths, soundEnabled }) {
+export default function Hero({ onStartGame, onExploreIts, onOpenMyths, onOpenWheel, soundEnabled }) {
   const handleClick = (callback) => {
-    playSound('click', soundEnabled);
+    playSound('pop', soundEnabled);
     callback();
   };
 
@@ -10,22 +10,22 @@ export default function Hero({ onStartGame, onExploreIts, onOpenMyths, soundEnab
     <section className="hero-section">
       <div className="hero-glow-1"></div>
       <div className="hero-glow-2"></div>
+      <div className="hero-glow-3"></div>
 
       <div className="hero-badge-pill">
-        <span className="badge-sparkle">✨</span>
-        <span>Espacio Seguro • 100% Confidencial • Cero Vergüenza</span>
+        <span className="badge-sparkle">🌸</span>
+        <span>Espacio Seguro • 100% Confidencial • Cero Tabúes</span>
       </div>
 
       <h1 className="hero-title">
         Tu cuerpo, tus decisiones.
         <br />
-        <span className="gradient-text">Cero mitos, 100% diversión.</span>
+        <span className="gradient-text-pastel">Aprende jugando sin rollos raros.</span>
       </h1>
 
       <p className="hero-subtitle">
-        Aprende sobre prevención de Infecciones de Transmisión Sexual (ITS), métodos de barrera,
-        consentimiento y salud sexual con desafíos interactivos y un <strong>juego infinito de palabras</strong>.
-        ¡Sin tabúes ni explicaciones aburridas!
+        Descubre cómo protegerte de las Infecciones de Transmisión Sexual (ITS), resolver dudas con tu mascota
+        guía y divertirte con nuestro <strong>juego infinito de palabras</strong> y la <strong>ruleta pastel</strong>.
       </p>
 
       {/* Action Buttons */}
@@ -40,14 +40,22 @@ export default function Hero({ onStartGame, onExploreIts, onOpenMyths, soundEnab
 
         <button
           className="btn-secondary"
-          onClick={() => handleClick(onExploreIts)}
+          onClick={() => handleClick(onOpenWheel)}
         >
-          <span className="btn-icon">🔍</span>
-          <span>Explorar Fichas ITS</span>
+          <span className="btn-icon">🎡</span>
+          <span>Girar Ruleta Pastel</span>
         </button>
 
         <button
           className="btn-tertiary"
+          onClick={() => handleClick(onExploreIts)}
+        >
+          <span className="btn-icon">🔍</span>
+          <span>Explorador de ITS</span>
+        </button>
+
+        <button
+          className="btn-quaternary"
           onClick={() => handleClick(onOpenMyths)}
         >
           <span className="btn-icon">⚡</span>
@@ -57,7 +65,7 @@ export default function Hero({ onStartGame, onExploreIts, onOpenMyths, soundEnab
 
       {/* Live Impact Stats Grid */}
       <div className="hero-stats-grid">
-        <div className="stat-card">
+        <div className="stat-card card-pink">
           <div className="stat-card-top">
             <span className="stat-icon">📈</span>
             <span className="stat-value">1 de cada 2</span>
@@ -67,7 +75,7 @@ export default function Hero({ onStartGame, onExploreIts, onOpenMyths, soundEnab
           </p>
         </div>
 
-        <div className="stat-card">
+        <div className="stat-card card-mint">
           <div className="stat-card-top">
             <span className="stat-icon">🛡️</span>
             <span className="stat-value">98%</span>
@@ -77,7 +85,7 @@ export default function Hero({ onStartGame, onExploreIts, onOpenMyths, soundEnab
           </p>
         </div>
 
-        <div className="stat-card">
+        <div className="stat-card card-lavender">
           <div className="stat-card-top">
             <span className="stat-icon">🤫</span>
             <span className="stat-value">&gt;70%</span>
@@ -87,13 +95,13 @@ export default function Hero({ onStartGame, onExploreIts, onOpenMyths, soundEnab
           </p>
         </div>
 
-        <div className="stat-card">
+        <div className="stat-card card-peach">
           <div className="stat-card-top">
             <span className="stat-icon">💖</span>
             <span className="stat-value">I = I</span>
           </div>
           <p className="stat-desc">
-            Indetectable = Intransmisible. El tratamiento adecuado corta la transmisión.
+            Indetectable = Intransmisible. Con tratamiento adecuado se corta la transmisión.
           </p>
         </div>
       </div>
