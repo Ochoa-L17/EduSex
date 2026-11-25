@@ -56,7 +56,6 @@ export default function Navbar({
           >
             <span className="nav-btn-icon">🎮</span>
             <span>Juego Infinito</span>
-            <span className="nav-tag-pastel">HOT</span>
           </button>
 
           <button
