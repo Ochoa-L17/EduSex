@@ -59,6 +59,14 @@ export default function Navbar({
           </button>
 
           <button
+            className={`nav-btn ${activeTab === 'ruleta' ? 'active' : ''}`}
+            onClick={() => handleTabClick('ruleta')}
+          >
+            <span className="nav-btn-icon">🎡</span>
+            <span>Ruleta</span>
+          </button>
+
+          <button
             className={`nav-btn ${activeTab === 'its' ? 'active' : ''}`}
             onClick={() => handleTabClick('its')}
           >
